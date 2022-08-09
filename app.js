@@ -1,5 +1,5 @@
 const express = require("express");
-
+const task = require("./folder_for_dashboard/require_dashboard")
 const dotenv = require("dotenv");
 const path = require("path");
 const MongoStore = require("connect-mongo");
@@ -48,7 +48,7 @@ app.use(passport.session())
 app.get("/auth/google",(req,res,next)=>{
     if(req.isAuthenticated())
     {
-        res.redirect("/on_signin_pages/storiesPage/user_typed_data");
+        res.redirect("/on_signin_pages/storiesPage");
     }
     else
     {
@@ -58,17 +58,17 @@ app.get("/auth/google",(req,res,next)=>{
 app.engine(".hbs",exphbs.engine({defaultLayout:"main",extname:".hbs"}));
 app.set("view engine",".hbs");
 app.get("/google/callback",passport.authenticate("google",{failureRedirect:"/components/signin"}),(req,res)=>{
-   res.redirect("/on_signin_pages/storiesPage/user_typed_data");
+   res.redirect("/on_signin_pages/storiesPage");
 })
 //app.get("/on_signin_pages/storiesPage",isloggedin,(req,res)=>{
 //res.sendFile("/on_signin_pages/storiesPage.html",{root:path.join(__dirname)})
 //});
-//app.use("/",require("./folder_for_dashboard/require_dashboard"));
+app.use("/",require("./folder_for_dashboard/require_dashboard"));
 app.get("/components/sigin",(req,res)=>{
     res.sendFile("/public/components/signin.html",{root:path.join(__dirname)})
 })
 app.use("/on_signin_pages/storiesPage/user_typed_data",require("./folder_for_dashboard/routerforuserdata"));
-//app.use("/on_signin_pages/storiesPage/",task);
+app.use("/on_signin_pages/storiesPage/",task);
 //app.post("/on_signin_pages/storiesPage",async (req,res)=>{
 //   try {
 //        const title = req.body.title;
@@ -84,7 +84,7 @@ app.get("/logout",(req,res)=>{
             res.redirect("/components/sigin");
         })
     })
-
-app.listen(3000,()=>{
-    console.log("server listening on port 3000");
+const port = process.env.PORT || 3000
+app.listen(port,()=>{
+    console.log("server listening on port");
 })

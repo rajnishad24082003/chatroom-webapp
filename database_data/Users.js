@@ -12,10 +12,6 @@ const userData = new mongoose.Schema({
         type:String,
         required:true
     },
-    googleEmail:{
-        type:String,
-        required:true
-    },
     userimage:{
         type:String
     },
