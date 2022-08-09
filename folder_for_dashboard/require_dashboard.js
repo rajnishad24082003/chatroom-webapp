@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Task = require("./taskschema");
 const passport = require("passport");
-//require("../configFolder/passport")(passport);
+require("../configFolder/passport")(passport);
 const isloggedin = (req,res,next)=>{
     if(req.isAuthenticated())
     {

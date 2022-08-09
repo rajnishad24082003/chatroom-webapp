@@ -1,8 +1,9 @@
 const mongoose= require("mongoose");
 const {Schema} = mongoose;
 const user_typed_data = new mongoose.Schema({
-    title:{type:String},
-    message:{type:String},
+    googleid2:{type:String},
+    title:{type:String,required:true},
+    message:{type:String,required:true},
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
